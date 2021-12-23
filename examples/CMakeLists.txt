@@ -211,11 +211,9 @@ IF(DYNAMIC_OPENSCENEGRAPH)
         ADD_SUBDIRECTORY(osgviewerFOX)
     ENDIF(FOX_FOUND)
 
-    IF   (wxWidgets_FOUND AND CMAKE_BUILD_TYPE)
-        IF (${CMAKE_BUILD_TYPE} STREQUAL "Release")
+    IF   (wxWidgets_FOUND)
             ADD_SUBDIRECTORY(osgviewerWX)
-        ENDIF()
-    ENDIF()
+    ENDIF(wxWidgets_FOUND)
 
     IF   (FLTK_FOUND AND FLTK_GL_LIBRARY)
         ADD_SUBDIRECTORY(osgviewerFLTK)
