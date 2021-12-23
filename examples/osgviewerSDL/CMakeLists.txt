@@ -13,7 +13,7 @@ ELSE()
                # Depending on platform (or SDL version),
                # this may or may not link successfully.
                SET(TARGET_SRC osgviewerSDL.cpp)
-               SET(TARGET_EXTERNAL_LIBRARIES ${SDLMAIN_LIBRARY} ${TARGET_EXTERNAL_LIBRARIES} )
+               SET(TARGET_EXTERNAL_LIBRARIES ${SDL_LIBRARY} ${TARGET_EXTERNAL_LIBRARIES} )
        ENDIF()
 ENDIF()
 
