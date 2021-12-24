@@ -23,6 +23,7 @@ FIND_PATH(OPENEXR_INCLUDE_DIR OpenEXR/ImfIO.h
     /opt/include
     /usr/freeware/include
 )
+SET(OPENEXR_INCLUDE_DIR ${OPENEXR_INCLUDED_DIR}/OpenEXR)
 
 # Macro to find exr libraries (deduplicating search paths)
 # example: OPENEXR_FIND_VAR(OPENEXR_IlmImf_LIBRARY IlmImf)
