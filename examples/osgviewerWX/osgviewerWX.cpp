@@ -91,6 +91,11 @@ bool wxOsgApp::OnInit()
     return true;
 }
 
+void __attribute__ ((constructor)) force_x11()
+{
+    setenv("GDK_BACKEND","x11", 1);
+}
+
 IMPLEMENT_APP(wxOsgApp)
 
 BEGIN_EVENT_TABLE(MainFrame, wxFrame)
