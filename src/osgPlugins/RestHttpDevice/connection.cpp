@@ -10,7 +10,6 @@
 
 #include "connection.hpp"
 #include <vector>
-#include <boost/bind.hpp>
 #include "request_handler.hpp"
 #include <osg/Notify>
 
@@ -39,9 +38,9 @@ void connection::start()
   OSG_DEBUG << "RestHttpDevice :: connection::start" << std::endl;
   
   socket_.async_read_some(asio::buffer(buffer_),
-      boost::bind(&connection::handle_read, shared_from_this(),
-        asio::placeholders::error,
-        asio::placeholders::bytes_transferred));
+      std::bind(&connection::handle_read, shared_from_this(),
+        std::placeholders::_1,
+        std::placeholders::_2));
 }
 
 void connection::handle_read(const asio::error_code& e,
@@ -57,22 +56,22 @@ void connection::handle_read(const asio::error_code& e,
     {
       request_handler_.handle_request(request_, reply_);
       asio::async_write(socket_, reply_.to_buffers(),
-          boost::bind(&connection::handle_write, shared_from_this(),
-            asio::placeholders::error));
+          std::bind(&connection::handle_write, shared_from_this(),
+            asio::placeholders::_1));
     }
     else if (!result)
     {
       reply_ = reply::stock_reply(reply::bad_request);
       asio::async_write(socket_, reply_.to_buffers(),
-          boost::bind(&connection::handle_write, shared_from_this(),
-            asio::placeholders::error));
+          std::bind(&connection::handle_write, shared_from_this(),
+            asio::placeholders::_1));
     }
     else
     {
       socket_.async_read_some(asio::buffer(buffer_),
-          boost::bind(&connection::handle_read, shared_from_this(),
-            asio::placeholders::error,
-            asio::placeholders::bytes_transferred));
+          std::bind(&connection::handle_read, shared_from_this(),
+            asio::placeholders::_1,
+            asio::placeholders::_2));
     }
   }
 
